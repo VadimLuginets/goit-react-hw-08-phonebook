@@ -6,7 +6,12 @@ import { Div, Ul } from './App.styled';
 const JSON_KEY_CONTACTS = 'contactsList';
 export class App extends React.Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
     name: '',
   };
   formSubmitHandler = data => {
@@ -34,7 +39,9 @@ export class App extends React.Component {
     this.setState({ contacts: JSON.parse(savedContacts) });
   };
   componentDidMount() {
-    this.loadContactsFromLocalStorage();
+    if (localStorage.getItem(JSON_KEY_CONTACTS) !== null) {
+      this.loadContactsFromLocalStorage();
+    }
   }
   componentDidUpdate() {
     this.saveContactsToLocalStorage();
