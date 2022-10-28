@@ -40,7 +40,7 @@ export function App() {
     }
   }, []);
   useEffect(() => {
-    saveContactsToLocalStorage();
+    saveContactsToLocalStorage(); // eslint-disable-next-line
   }, [contacts]);
   return (
     <Div>
