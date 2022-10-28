@@ -4,7 +4,6 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import { Div, Ul } from './App.styled';
-import { nanoid } from 'nanoid';
 const JSON_KEY_CONTACTS = 'contactsList';
 export function App() {
   const [contacts, setContacts] = useState([]);
