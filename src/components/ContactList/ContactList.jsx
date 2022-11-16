@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { deleteContact } from '../Redux/store';
 import { useDispatch } from 'react-redux';
 import { Li } from './ContactList.styled';
-export function ContactList({ arrayOfObjects, name }) {
+export function ContactList({ arrayOfObjects, filterName }) {
   const dispatch = useDispatch();
-  if (name === '') {
+  if (filterName === '') {
     return arrayOfObjects.map(o => {
       return (
         <Li key={o.id} id={o.id}>
@@ -22,7 +22,7 @@ export function ContactList({ arrayOfObjects, name }) {
       );
     });
   }
-  const normalizedName = name.toLowerCase();
+  const normalizedName = filterName.toLowerCase();
   const visibleContacts = arrayOfObjects.filter(o =>
     o.name.toLowerCase().includes(normalizedName)
   );
@@ -42,7 +42,7 @@ export function ContactList({ arrayOfObjects, name }) {
   ));
 }
 ContactList.propTypes = {
-  name: PropTypes.string.isRequired,
+  filterName: PropTypes.string.isRequired,
   arrayOfObjects: PropTypes.arrayOf(
     PropTypes.exact({
       id: PropTypes.string.isRequired,

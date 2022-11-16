@@ -1,15 +1,13 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import { Div, Ul } from './App.styled';
-import { addContact } from './Redux/store';
+import { addContact, updateFilter } from './Redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-const JSON_KEY_CONTACTS = 'contactsList';
 export function App() {
-  const contacts = useSelector(state => state.contacts);
-  const [filterName, setFilterName] = useState('');
+  const contacts = useSelector(state => state.contacts.contactList);
+  const filterName = useSelector(state => state.filter.filterValue);
   const dispatch = useDispatch();
 
   const formSubmitHandler = data => {
@@ -23,17 +21,8 @@ export function App() {
   };
   const changeFilter = e => {
     const name = e.currentTarget.value;
-    setFilterName(e => name);
+    dispatch(updateFilter(name));
   };
-
-  const saveContactsToLocalStorage = () => {
-    const dataToSave = JSON.stringify(contacts);
-    localStorage.setItem(JSON_KEY_CONTACTS, dataToSave);
-  };
-
-  useEffect(() => {
-    saveContactsToLocalStorage(); // eslint-disable-next-line
-  }, [contacts]);
   return (
     <Div>
       <h1>Phoneboock</h1>
@@ -41,7 +30,7 @@ export function App() {
       <h2>Contacts</h2>
       <Filter onChange={changeFilter} value={filterName} />
       <Ul>
-        <ContactList arrayOfObjects={contacts} name={filterName} />
+        <ContactList arrayOfObjects={contacts} filterName={filterName} />
       </Ul>
     </Div>
   );
