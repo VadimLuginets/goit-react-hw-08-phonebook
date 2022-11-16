@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
+import { deleteContact } from '../Redux/store';
+import { useDispatch } from 'react-redux';
 import { Li } from './ContactList.styled';
-export function ContactList({ arrayOfObjects, name, deleteContact }) {
+export function ContactList({ arrayOfObjects, name }) {
+  const dispatch = useDispatch();
   if (name === '') {
     return arrayOfObjects.map(o => {
       return (
@@ -9,7 +12,7 @@ export function ContactList({ arrayOfObjects, name, deleteContact }) {
           <p>{o.number}</p>
           <button
             onClick={() => {
-              deleteContact(o.id);
+              dispatch(deleteContact(o.id));
             }}
             type="button"
           >
@@ -29,7 +32,7 @@ export function ContactList({ arrayOfObjects, name, deleteContact }) {
       <p>{o.number}</p>
       <button
         onClick={() => {
-          deleteContact(o.id);
+          dispatch(deleteContact(o.id));
         }}
         type="button"
       >
@@ -39,7 +42,6 @@ export function ContactList({ arrayOfObjects, name, deleteContact }) {
   ));
 }
 ContactList.propTypes = {
-  deleteContact: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   arrayOfObjects: PropTypes.arrayOf(
     PropTypes.exact({
