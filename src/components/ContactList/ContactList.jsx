@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
-import { deleteContact } from '../Redux/store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from 'Redux/slices';
 import { Li } from './ContactList.styled';
-export function ContactList({ arrayOfObjects, filterName }) {
+export function ContactList() {
+  const arrayOfObjects = useSelector(state => state.contacts.contactList);
+  const filterName = useSelector(state => state.filter.filterValue);
   const dispatch = useDispatch();
   if (filterName === '') {
     return arrayOfObjects.map(o => {
@@ -41,13 +42,3 @@ export function ContactList({ arrayOfObjects, filterName }) {
     </Li>
   ));
 }
-ContactList.propTypes = {
-  filterName: PropTypes.string.isRequired,
-  arrayOfObjects: PropTypes.arrayOf(
-    PropTypes.exact({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
-};
