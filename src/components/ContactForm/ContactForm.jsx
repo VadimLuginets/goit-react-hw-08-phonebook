@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
-import { Form } from './ContactFrom.styled';
+import { Form } from './ContactFrom.styled'; // eslint-disable-next-line
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'Redux/slices';
+import { addContact } from 'Redux/operations';
 export function ContactForm() {
-  const contacts = useSelector(state => state.contacts.contactList);
+  const contacts = useSelector(state => state.contacts.contactsList);
   const dispatch = useDispatch();
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const handleChange = e => {
     const { name, value } = e.target;
     switch (name.toLowerCase()) {
@@ -15,7 +15,7 @@ export function ContactForm() {
         setName(() => value);
         break;
       case 'number':
-        setNumber(() => value);
+        setPhone(() => value);
         break;
 
       default:
@@ -25,19 +25,19 @@ export function ContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const data = { name: name, number: number, id: nanoid() };
+    const data = { name: name, phone: phone, id: nanoid() };
     const arrayOfNames = contacts.map(o => o.name.toLowerCase());
     if (arrayOfNames.includes(name.toLowerCase())) {
       alert(`${data.name} is already in contacts`);
       return;
     }
-    dispatch(addContact([data]));
+    dispatch(addContact(data));
     reset();
   };
 
   const reset = () => {
     setName(() => '');
-    setNumber(() => '');
+    setPhone(() => '');
   };
 
   return (
@@ -75,7 +75,7 @@ export function ContactForm() {
           onChange={event => {
             handleChange(event);
           }}
-          value={number}
+          value={phone}
           required
         />
       </label>

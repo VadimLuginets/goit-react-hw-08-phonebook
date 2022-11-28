@@ -1,27 +1,47 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import { fetchContacts, addContact, deleteContact } from './operations';
+const handlePending = state => {
+  state.isLoading = true;
+};
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
 export const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
-    contactList: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contactsList: [],
+    isLoading: false,
+    error: null,
   },
-  reducers: {
-    addContact(state, action) {
-      return { contactList: [...state.contactList, ...action.payload] };
+  reducers: {},
+  extraReducers: {
+    [fetchContacts.pending]: handlePending,
+    [fetchContacts.rejected]: handleRejected,
+    [fetchContacts.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.contactsList = action.payload;
     },
-    deleteContact(state, action) {
-      return {
-        contactList: state.contactList.filter(c => c.id !== action.payload),
-      };
+    [addContact.pending]: handlePending,
+    [addContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.contactsList.push(action.payload);
     },
+    [addContact.rejected]: handleRejected,
+    [deleteContact.pending]: handlePending,
+    [deleteContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.contactsList.findIndex(
+        contact => contact.id === action.payload.id
+      );
+      state.contactsList.splice(index, 1);
+    },
+    [deleteContact.rejected]: handleRejected,
   },
 });
-export const { addContact, deleteContact } = contactsSlice.actions;
 export const filterSlice = createSlice({
   name: 'filter',
   initialState: { filterValue: '' },
@@ -32,3 +52,4 @@ export const filterSlice = createSlice({
   },
 });
 export const { updateFilter } = filterSlice.actions;
+export const contactsReducer = contactsSlice.reducer;
