@@ -1,20 +1,25 @@
 import styled from '@emotion/styled';
-export const Div = styled.div`
+export const Box = styled.div`
+  background-color: cornflowerblue;
+  color: floralwhite;
+  font-size: 25px;
   display: flex;
   flex-direction: column;
+  align-content: center;
+  justify-content: space-around;
   align-items: center;
-  width: fit-content;
-  height: fit-content;
-  flex-wrap: wrap;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #a0dad3;
-`;
-export const Ul = styled.ul`
-  list-style: none;
+  }`;
+export const Nav = styled.ul`
+    width: 100%;
+    height: 80px;
+    margin: 0;    
+    font-weight: bold;
+  background-color: #0332859e;
+  color: floralwhite;
+  font-size: 25px;
   display: flex;
-  flex-wrap: wrap;
-  margin: 0;
-  padding: 16px 16px;
-  max-width: 1000px;
-`;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-around;
+  align-items: center;
+  }`;
