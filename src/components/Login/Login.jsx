@@ -45,7 +45,7 @@ export function Login() {
           onChange={onChange}
           type="text"
           name="login"
-          placeholder="Login"
+          placeholder="Email"
           value={email}
         />
       </Label>
