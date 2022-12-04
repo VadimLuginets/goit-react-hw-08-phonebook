@@ -6,8 +6,9 @@ import {
   updateLogInDataPassword,
   resetLogInState,
 } from 'Redux/slices';
+import { loginUser } from 'Redux/operations';
 export function Login() {
-  const login = useSelector(getLogInLogin);
+  const email = useSelector(getLogInLogin);
   const password = useSelector(getLogInPassword);
   const dispatch = useDispatch();
   const onChange = e => {
@@ -25,7 +26,12 @@ export function Login() {
   };
   const onHandleSubmit = e => {
     e.preventDefault();
-    if (login !== '' && password !== '') {
+    if (email !== '' && password !== '') {
+      const data = Object();
+      data.email = email;
+      data.password = password;
+      console.log(data);
+      dispatch(loginUser(data));
       dispatch(resetLogInState());
     } else {
       return alert('Please fill all filds');
@@ -34,13 +40,13 @@ export function Login() {
   return (
     <Form onSubmit={onHandleSubmit} autoComplete="off">
       <Label>
-        <Span>Login</Span>
+        <Span>Email</Span>
         <Input
           onChange={onChange}
           type="text"
           name="login"
           placeholder="Login"
-          value={login}
+          value={email}
         />
       </Label>
       <Label>

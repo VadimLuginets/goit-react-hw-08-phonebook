@@ -37,7 +37,7 @@ export function Register() {
   const onHandleSubmit = e => {
     e.preventDefault();
     if (login !== '' && password !== '' && email !== '') {
-      const data = new Object();
+      const data = Object();
       data.name = login;
       data.password = password;
       data.email = email;

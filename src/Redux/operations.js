@@ -12,6 +12,17 @@ export const createUser = createAsyncThunk(
     }
   }
 );
+export const loginUser = createAsyncThunk(
+  'user/logInUser',
+  async (data, thunkAPI) => {
+    try {
+      const response = await axios.post('/users/login', data);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, thunkAPI) => {
