@@ -7,8 +7,8 @@ const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
 };
-export const contactsSlice = createSlice({
-  name: 'contacts',
+export const userSlice = createSlice({
+  name: 'user',
   initialState: {
     contactsList: [],
     isLoading: false,
@@ -42,14 +42,62 @@ export const contactsSlice = createSlice({
     [deleteContact.rejected]: handleRejected,
   },
 });
-export const filterSlice = createSlice({
-  name: 'filter',
-  initialState: { filterValue: '' },
+export const register = createSlice({
+  name: 'register',
+  initialState: { login: '', password: '', email: '' },
   reducers: {
-    updateFilter(state, action) {
-      return { filterValue: action.payload };
+    updateRegisterDataLogin(state, action) {
+      return {
+        login: action.payload,
+        password: state.password,
+        email: state.email,
+      };
+    },
+    updateRegisterDataPassword(state, action) {
+      return {
+        login: state.login,
+        password: action.payload,
+        email: state.email,
+      };
+    },
+    updateRegisterDataEmail(state, action) {
+      return {
+        login: state.login,
+        password: state.password,
+        email: action.payload,
+      };
+    },
+    resetRegisterState(state, action) {
+      return { login: '', password: '', email: '' };
     },
   },
 });
-export const { updateFilter } = filterSlice.actions;
-export const contactsReducer = contactsSlice.reducer;
+export const logIn = createSlice({
+  name: 'logIn',
+  initialState: { login: '', password: '' },
+  reducers: {
+    updateLogInDataLogin(state, action) {
+      return { login: action.payload, password: state.password };
+    },
+    updateLogInDataPassword(state, action) {
+      return { login: state.login, password: action.payload };
+    },
+    resetLogInState(state, action) {
+      return { login: '', password: '' };
+    },
+  },
+});
+export const {
+  updateRegisterDataLogin,
+  updateRegisterDataPassword,
+  updateRegisterDataEmail,
+  resetRegisterState,
+} = register.actions;
+export const {
+  updateLogInDataLogin,
+  updateLogInDataPassword,
+  resetLogInState,
+} = logIn.actions;
+export const logInReduser = logIn.reducer;
+export const userReducer = userSlice.reducer;
+export const registerReducer = register.reducer;

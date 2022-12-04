@@ -9,7 +9,7 @@ export const Box = styled.div`
   justify-content: space-around;
   align-items: center;
   }`;
-export const Nav = styled.ul`
+export const Nav = styled.nav`
     width: 100%;
     height: 80px;
     margin: 0;    
@@ -23,3 +23,7 @@ export const Nav = styled.ul`
   justify-content: space-around;
   align-items: center;
   }`;
+export const Ul = styled.ul`
+  padding: 0;
+  list-style: none;
+`;

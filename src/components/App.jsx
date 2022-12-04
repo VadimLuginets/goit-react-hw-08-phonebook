@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Home } from 'components/Home/Home';
 import { NavLink, Routes, Route } from 'react-router-dom';
-import { Box, Nav } from './App.styled';
+import { Box, Nav, Ul } from './App.styled';
 import { Login } from './Login/Login';
 import { Register } from './Register/Register';
 const StyledNavLink = styled(NavLink)`
@@ -13,18 +13,22 @@ const StyledNavLink = styled(NavLink)`
   margin: 8px;
   &.active {
     color: #07ffd1;
+    outline: #07ffd1 solid;
+  }
+  &:hover {
+    outline: #07ffd1 solid;
   }
 `;
 export function App() {
   return (
     <Box>
       <Nav>
-        <ul>
+        <Ul>
           <StyledNavLink to="/">Home</StyledNavLink>
           <StyledNavLink to="/register">Register</StyledNavLink>
-          <StyledNavLink to="/login">Login</StyledNavLink>
+          <StyledNavLink to="/login">Log in</StyledNavLink>
           <StyledNavLink to="/contacts">Contacts</StyledNavLink>
-        </ul>
+        </Ul>
       </Nav>
       <Routes>
         <Route path="/" element={<Home />} />
