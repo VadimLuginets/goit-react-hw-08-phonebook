@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { Home } from 'components/Home/Home';
+import { Home } from 'pages/Home/Home';
 import { NavLink, Routes, Route } from 'react-router-dom';
 import { Box, Nav, Ul } from './App.styled';
-import { Login } from './Login/Login';
-import { Register } from './Register/Register';
+import { Login } from '../pages/Login/Login';
+import { Register } from '../pages/Register/Register';
+import { Contacts } from 'pages/Contacts/Contacts';
 const StyledNavLink = styled(NavLink)`
   color: black;
   border-radius: 22px;
@@ -34,6 +35,7 @@ export function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/contacts" element={<Contacts />} />
       </Routes>
     </Box>
   );

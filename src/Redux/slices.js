@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createUser, loginUser } from './operations';
+import { createUser, fetchContacts, loginUser } from './operations';
 const handlePending = state => {
   state.isLoading = true;
 };
@@ -30,10 +30,19 @@ export const userSlice = createSlice({
     [loginUser.rejected]: handleRejected,
     [loginUser.fulfilled](state, action) {
       state.isLoading = false;
+      state.isLogIn = true;
       state.error = null;
       state.token = action.payload.token;
       state.name = action.payload.user.name;
       state.email = action.payload.user.email;
+    },
+    [fetchContacts.pending]: handlePending,
+    [fetchContacts.rejected]: handleRejected,
+    [fetchContacts.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.contactsList = action.payload;
+      console.log(action.payload);
     },
   },
 });
