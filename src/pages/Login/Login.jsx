@@ -30,7 +30,6 @@ export function Login() {
       const data = Object();
       data.email = email;
       data.password = password;
-      console.log(data);
       dispatch(loginUser(data));
       dispatch(resetLogInState());
     } else {

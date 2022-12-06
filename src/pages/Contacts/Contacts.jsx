@@ -1,10 +1,16 @@
+import { AddContactForm } from 'components/AddContactForm/AddContactForm';
 import { ContactsList } from 'components/ContactsList/ContactsList';
-import { Div } from './Contacts.styled';
+import { ContactListFilter } from 'components/ContactsList/ContactsListFilter';
+import { Div, LeftBar, Span } from './Contacts.styled';
 
 export function Contacts() {
   return (
     <Div>
-      Contacts
+      <LeftBar>
+        <AddContactForm />
+        <Span>Search contact</Span>
+        <ContactListFilter />
+      </LeftBar>
       <ContactsList />
     </Div>
   );

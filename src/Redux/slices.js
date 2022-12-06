@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createUser, fetchContacts, loginUser } from './operations';
+import { createUser, fetchContacts, loginUser, userLogout } from './operations';
 const handlePending = state => {
   state.isLoading = true;
 };
@@ -15,10 +15,24 @@ export const userSlice = createSlice({
     isLogIn: false,
     token: '',
     contactsList: [],
+    filter: '',
     isLoading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    unpadeFilterDataContacts(state, action) {
+      return {
+        name: state.name,
+        email: state.name,
+        isLogIn: state.isLogIn,
+        token: state.token,
+        contactsList: state.contactsList,
+        filter: action.payload,
+        isLoading: state.isLoading,
+        error: state.error,
+      };
+    },
+  },
   extraReducers: {
     [createUser.pending]: handlePending,
     [createUser.rejected]: handleRejected,
@@ -42,7 +56,18 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.contactsList = action.payload;
-      console.log(action.payload);
+    },
+    [userLogout.pending]: handlePending,
+    [userLogout.rejected]: handleRejected,
+    [userLogout.fulfilled](state, action) {
+      state.name = '';
+      state.email = '';
+      state.isLogIn = false;
+      state.token = '';
+      state.contactsList = [];
+      state.filter = '';
+      state.isLoading = false;
+      state.error = null;
     },
   },
 });
@@ -91,6 +116,22 @@ export const logIn = createSlice({
     },
   },
 });
+export const addContactForm = createSlice({
+  name: 'addContactForm',
+  initialState: { name: '', number: '' },
+  reducers: {
+    updateAddContactFormDataName(state, action) {
+      return { name: action.payload, number: state.number };
+    },
+    updateAddContactFormDataNumber(state, action) {
+      return { name: state.name, number: action.payload };
+    },
+    resetAddContactFormState(state, action) {
+      return { name: '', number: '' };
+    },
+  },
+});
+export const { unpadeFilterDataContacts } = userSlice.actions;
 export const {
   updateRegisterDataLogin,
   updateRegisterDataPassword,
@@ -102,6 +143,12 @@ export const {
   updateLogInDataPassword,
   resetLogInState,
 } = logIn.actions;
+export const {
+  updateAddContactFormDataName,
+  updateAddContactFormDataNumber,
+  resetAddContactFormState,
+} = addContactForm.actions;
 export const logInReduser = logIn.reducer;
 export const userReducer = userSlice.reducer;
 export const registerReducer = register.reducer;
+export const addContactFormRducer = addContactForm.reducer;

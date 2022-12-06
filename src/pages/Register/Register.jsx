@@ -41,7 +41,6 @@ export function Register() {
       data.name = login;
       data.password = password;
       data.email = email;
-      console.log(data);
       dispatch(createUser(data));
       dispatch(resetRegisterState());
     } else {
