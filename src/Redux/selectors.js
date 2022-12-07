@@ -7,5 +7,6 @@ export const getIsLoggedIn = state => state.user.isLogIn;
 export const getArrayOfContacts = state => state.user.contactsList;
 export const getFilterContacts = state => state.user.filter;
 export const getUserEmail = state => state.user.email;
+export const getUserToken = state => state.user.token;
 export const getNameAddContactForm = state => state.addContactForm.name;
 export const getNumberAddContactForm = state => state.addContactForm.number;

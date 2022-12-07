@@ -52,7 +52,7 @@ export function Login() {
         <Span>Password</Span>
         <Input
           onChange={onChange}
-          type="text"
+          type="password"
           name="password"
           placeholder="Password"
           value={password}
